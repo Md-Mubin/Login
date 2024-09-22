@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { registerForm } from '../Slices/MainSlices'
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 
 const Register = () => {
     
@@ -11,6 +12,16 @@ const Register = () => {
     const [passwordError  , setPasswordError]   = useState("")
     const [rePassword     , setRePassword]      = useState("")
     const [rePasswordError, setRePasswordError] = useState("")
+    const [show           , block]              = useState(true)
+    const [rePassShow     , rePassBlock]        = useState(true)
+
+    const showBlock =()=>{
+        block(!show)
+    }
+
+    const reShowBlock = ()=>{
+        rePassBlock(!rePassShow)
+    }
 
     const naviget = useNavigate()
 
@@ -71,13 +82,25 @@ const Register = () => {
                 </ul>
 
                 <ul className='relative'>
-                    <input onChange={handlePassword} type="password" placeholder='Your Password' className='w-[300px] border-2 py-2 pl-2' />
+                    <input onChange={handlePassword} type={show? "password" : "text"} placeholder='Your Password' className='w-[300px] border-2 py-2 pl-2' />
                     <p className='absolute top-[-20px] text-red-400'>{passwordError}</p>
+                    {
+                        show?
+                        <FaRegEye onClick={showBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
+                        :
+                        <FaRegEyeSlash onClick={showBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
+                    }
                 </ul>
 
                 <ul className='relative'>
-                    <input onChange={handleRePassword} type="password" placeholder='Re-enter Password' className='w-[300px] border-2 py-2 pl-2' />
+                    <input onChange={handleRePassword} type={rePassShow? "password" : "text"} placeholder='Re-enter Password' className='w-[300px] border-2 py-2 pl-2' />
                     <p className='absolute top-[-20px] text-red-400'>{rePasswordError}</p>
+                    {
+                        rePassShow?
+                        <FaRegEye onClick={reShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
+                        :
+                        <FaRegEyeSlash onClick={reShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
+                    }
                 </ul>
 
                 <button className='w-[200px] border-2 py-2 rounded-2xl hover:bg-black hover:text-white duration-300'>Register</button>
