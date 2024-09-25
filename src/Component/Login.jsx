@@ -7,15 +7,13 @@ const Login = () => {
 
   const data = useSelector((state) => state.counter.user)
 
-  console.log(data)
-
   const navigate = useNavigate()
 
-  const [loginEmail, setLoginEmail] = useState("")
-  const [loginEmailError, setLoginEmailError] = useState("")
-  const [loginPassword, setLoginPassword] = useState("")
-  const [loginPasswordError, setLoginPasswordError] = useState("")
-  const [passShow, passBlock] = useState(true)
+  const [loginEmail,          setLoginEmail]          = useState("")
+  const [loginEmailError,     setLoginEmailError]     = useState("")
+  const [loginPassword,       setLoginPassword]       = useState("")
+  const [loginPasswordError,  setLoginPasswordError]  = useState("")
+  const [passShow,            passBlock]              = useState(true)
 
   const passShowBlock = () => {
     passBlock(!passShow)
@@ -40,7 +38,7 @@ const Login = () => {
     if (loginPassword !== data.password) {
       setLoginPasswordError("Enter Your Correct Password")
     }
-    if(loginEmail === data.email && loginPassword === data.password){
+    if (loginEmail === data.email && loginPassword === data.password) {
       navigate("/welcome")
     }
 
@@ -48,27 +46,29 @@ const Login = () => {
 
   return (
     <>
-      <h1 className='text-5xl text-center mt-10'>Login Page</h1>
-      <form onSubmit={handleLoginSubmit} className='flex items-center gap-5 flex-col mt-20'>
+      <section className='w-full h-[100vh] bg-gradient-to-r from-sky-200 via-sky-500 to-blue-200 pt-10'>
+        <h1 className='text-5xl font-semibold text-center'>Login Form</h1>
+        <form onSubmit={handleLoginSubmit} className='flex items-center gap-5 flex-col mt-20'>
 
-        <ul className='relative'>
-          <input onChange={handleLoginEmail} type="email" placeholder='Email' className='w-[300px] border-2 py-2 rounded-xl px-2 outline-none' />
-          <p className='absolute top-[-20px] text-red-400'>{loginEmailError}</p>
-        </ul>
+          <ul className='relative'>
+            <input onChange={handleLoginEmail} type="email" placeholder='Email' className='w-[300px] border-2 py-2 rounded-xl px-2 outline-none' />
+            <p className='absolute top-[-20px] text-white'>{loginEmailError}</p>
+          </ul>
 
-        <ul className='relative'>
-          <input onChange={handleLoginPassword} type={passShow ? "password" : "text"} placeholder='password' className='w-[300px] border-2 py-2 rounded-xl px-2 outline-none' />
-          <p className='absolute top-[-20px] text-red-400'>{loginPasswordError}</p>
-          {
-            passShow ?
-            <FaRegEyeSlash onClick={passShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer' />
-            :
-            <FaRegEye onClick={passShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer' />
-          }
-        </ul>
+          <ul className='relative'>
+            <input onChange={handleLoginPassword} type={passShow ? "password" : "text"} placeholder='password' className='w-[300px] border-2 py-2 rounded-xl px-2 outline-none' />
+            <p className='absolute top-[-20px] text-white'>{loginPasswordError}</p>
+            {
+              passShow ?
+                <FaRegEyeSlash onClick={passShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer' />
+                :
+                <FaRegEye onClick={passShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer' />
+            }
+          </ul>
 
-        <button className='w-[200px] border-2 py-2 rounded-2xl hover:bg-black hover:text-white duration-300'>Login</button>
-      </form>
+          <button className='w-[200px] py-2 rounded-2xl bg-gradient-to-t hover:bg-gradient-to-br hover:ring-2 hover:ring-sky-300 duration-200 text-white '>Login</button>
+          </form>
+      </section>
     </>
   )
 }
