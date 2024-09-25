@@ -3,15 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 export const counterSlice = createSlice({
   name: 'counter',
   initialState: {
-    value: {
-      email: "",
-      password: ""
-    },
+    user: "",
   },
   reducers: {
     registerForm: (state, action) => {
-      state.value.email = action.payload.email;
-      state.value.password = action.payload.password;
+      state.user = action.payload;
     },
   },
 })

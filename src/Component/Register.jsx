@@ -57,13 +57,13 @@ const Register = () => {
             setRePasswordError("Re Enter Password")
         }
 
-        if (password != rePassword) {
+        if (password !== rePassword) {
             setRePasswordError("Re Enter Password Correctly")
         }
         else {
-            if (email != "", password != "") {
+            if (email != "" && password != "") {
                 naviget("/login")
-                dispatch(registerForm({ email, password }))
+                dispatch(registerForm({ email , password }))
             }
         }
 
@@ -77,29 +77,29 @@ const Register = () => {
             <form onSubmit={handleSubmit} className=' flex items-center gap-5 flex-col mt-20'>
 
                 <ul className='relative'>
-                    <input onChange={handleEmail} type="email" placeholder='Your Email ' className='w-[300px] border-2 py-2 pl-2' />
+                    <input onChange={handleEmail} type="email" placeholder='Your Email' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
                     <p className='absolute top-[-20px] text-red-400'>{emailError}</p>
                 </ul>
 
                 <ul className='relative'>
-                    <input onChange={handlePassword} type={show? "password" : "text"} placeholder='Your Password' className='w-[300px] border-2 py-2 pl-2' />
+                    <input onChange={handlePassword} type={show? "password" : "text"} placeholder='Your Password' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
                     <p className='absolute top-[-20px] text-red-400'>{passwordError}</p>
                     {
                         show?
-                        <FaRegEye onClick={showBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
-                        :
                         <FaRegEyeSlash onClick={showBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
+                        :
+                        <FaRegEye onClick={showBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
                     }
                 </ul>
 
                 <ul className='relative'>
-                    <input onChange={handleRePassword} type={rePassShow? "password" : "text"} placeholder='Re-enter Password' className='w-[300px] border-2 py-2 pl-2' />
+                    <input onChange={handleRePassword} type={rePassShow? "password" : "text"} placeholder='Re-enter Password' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
                     <p className='absolute top-[-20px] text-red-400'>{rePasswordError}</p>
                     {
                         rePassShow?
-                        <FaRegEye onClick={reShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
-                        :
                         <FaRegEyeSlash onClick={reShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
+                        :
+                        <FaRegEye onClick={reShowBlock} className='absolute right-4 top-2 text-[25px] cursor-pointer'/>
                     }
                 </ul>
 
