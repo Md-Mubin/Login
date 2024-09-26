@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { Slide, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
@@ -40,9 +42,21 @@ const Login = () => {
     }
     if (loginEmail === data.email && loginPassword === data.password) {
       navigate("/welcome")
+      toast.success('Login Successful', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+        });
     }
 
   }
+
 
   return (
     <>

@@ -2,22 +2,24 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Register from "./Component/Register"
 import Login from "./Component/Login"
 import Welcome from "./Component/Welcome"
+import { ToastContainer } from "react-toastify"
 
 function App() {
 
   const loginpage = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="/" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/welcome" element={<Welcome/>}/>
+        <Route path="/" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/welcome" element={<Welcome />} />
       </Route>
     )
   )
 
   return (
     <>
-      <RouterProvider router={loginpage}/>
+      <ToastContainer />
+      <RouterProvider router={loginpage} />
     </>
   )
 }
