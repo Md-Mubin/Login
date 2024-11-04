@@ -31,21 +31,6 @@ const Register = () => {
     // for dispatch to slices
     const dispatch = useDispatch()
 
-    const handleEmail = (e) => {
-        setEmail(e.target.value)
-        setEmailError("")
-    }
-
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
-        setPasswordError("")
-    }
-
-    const handleRePassword = (e) => {
-        setRePassword(e.target.value)
-        setRePasswordError("")
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -60,15 +45,19 @@ const Register = () => {
         if (!rePassword) {
             setRePasswordError("Re Enter Password")
         }
-
         if (password !== rePassword) {
             setRePasswordError("Re Enter Password Correctly")
         }
+
         else {
-            if (email != "" && password != "") {
-                naviget("/login")
-                dispatch(registerForm({ email, password }))
-            }
+
+            setEmailError("")
+            setPasswordError("")
+            setRePasswordError("")
+            // if (email != "" && password != "") {
+            //     naviget("/login")
+            //     dispatch(registerForm({ email, password }))
+            // }
         }
 
     }
@@ -82,12 +71,12 @@ const Register = () => {
                 <form onSubmit={handleSubmit} className=' flex items-center gap-5 flex-col mt-20 '>
 
                     <ul className='relative'>
-                        <input onChange={handleEmail} type="email" placeholder='Your Email' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
+                        <input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder='Your Email' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
                         <p className='absolute top-[-20px] text-white'>{emailError}</p>
                     </ul>
 
                     <ul className='relative'>
-                        <input onChange={handlePassword} type={show ? "password" : "text"} placeholder='Your Password' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
+                        <input onChange={(e)=>setPassword(e.target.value)} type={show ? "password" : "text"} placeholder='Your Password' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
                         <p className='absolute top-[-20px] text-white'>{passwordError}</p>
                         {
                             show ?
@@ -98,7 +87,7 @@ const Register = () => {
                     </ul>
 
                     <ul className='relative'>
-                        <input onChange={handleRePassword} type={rePassShow ? "password" : "text"} placeholder='Re-enter Password' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
+                        <input onChange={(e)=>setRePassword(e.target.value)} type={rePassShow ? "password" : "text"} placeholder='Re-enter Password' className='w-[300px] border-2 py-2 pl-2 outline-none rounded-xl' />
                         <p className='absolute top-[-20px] text-white'>{rePasswordError}</p>
                         {
                             rePassShow ?
