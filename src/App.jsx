@@ -3,6 +3,7 @@ import Register from "./Component/Register"
 import Welcome from "./Component/Welcome"
 import ProfileLayout from "./assets/Layouts/ProfileLayout"
 import Login from "./Component/Login"
+import app from "./Firebase/Firebase.config"
 
 function App() {
 
