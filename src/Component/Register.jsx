@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification } from 'firebase/auth'
+import { Bounce, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
@@ -27,6 +30,8 @@ const Register = () => {
     // firebase auth
     const auth = getAuth();
 
+    // navigation
+    const navigate = useNavigate
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -46,22 +51,50 @@ const Register = () => {
             setRePasswordError("Re Enter Password Correctly")
         }
 
-       else {
+        else {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
-                    // ...
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
+                            // --- Toastify Animation for Email verification sent!
+                            toast.success('Email Verification Sent!', {
+                                position: "top-right",
+                                autoClose: 1500,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: false,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark",
+                                transition: Bounce,
+                            });
+                        });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    // ...
+
+                    if (errorCode == "auth/email-already-in-use") {
+
+                        // --- Toastify Animation for Registration with unavailable eamil
+                        toast.error('Email Already in Use', {
+                            position: "top-right",
+                            autoClose: 1500,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                            transition: Bounce,
+                        });
+                    }
                 });
 
         }
     }
-
 
     return (
         <>
@@ -89,10 +122,10 @@ const Register = () => {
                     <ul className='relative'>
                         <input onChange={(e) => { setRePassword(e.target.value), setRePasswordError("") }} type={rePassShow ? "password" : "text"} placeholder='Re-enter Password' className='w-[500px] border-2 py-5 pl-2 outline-none rounded-xl' />
                         <p className='absolute top-[-20px] text-white'>{rePasswordError}</p>
-                        
+
                         <li onClick={reShowBlock} className='absolute right-4 top-[18px] text-[30px]'>
                             {
-                                rePassShow ? <FaRegEyeSlash/> : <FaRegEye/>
+                                rePassShow ? <FaRegEyeSlash /> : <FaRegEye />
                             }
                         </li>
                     </ul>
